@@ -20,6 +20,13 @@ class PromotionsController < ApplicationController
     end
   end
 
+  ## Revised Attempt
+  def index_revised
+    PromotionServices.new(current_user, ip, user_agent).delay.revised_get_all
+  end
+
+  #what key to poll for?
+
   ...
   
 end

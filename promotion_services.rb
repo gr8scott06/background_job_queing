@@ -24,6 +24,14 @@ class PromotionServices
     return {cpi_offers: unique_cpi_offers, cpe_offers: unique_cpe_offers, pending_offers: pending_offers.first(8), promotion_click_public_id: @promotion_click_public_id}
   end
 
+  ## Revised Attempt
+  def revised_get_all
+    fyber_response = Redis.current.setex("promotion_services/fyber_#{current_user.id}", 2.minutes, get_fyber))
+    aarki_response = Redis.current.setex("promotion_services/aarki_#{current_user.id}", 2.minutes, get_aarki))
+    cpi_offers = fyber_response[:cpi_offers] + aarki_response[:cpi_offers]
+    ...
+  end
+
   ...
   
 end
